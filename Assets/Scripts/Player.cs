@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
 		//Las lineas de codigo que van a hacer que el personaje pueda ir a la derecha.
 		if (Input.GetKey ("right")) 
 		{
+
 			if(rigidbody2D.velocity.x < 0){
 				rigidbody2D.velocity = new Vector2(0,rigidbody2D.velocity.y);
 			}

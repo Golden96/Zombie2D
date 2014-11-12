@@ -14,7 +14,8 @@ public class Disparo : MonoBehaviour {
 			                        Quaternion.identity) as GameObject;
 			clone.transform.localScale = transform.localScale;
 
-		}
-	
-	}
+		} else {
+			Debug.Log("No hay balas");	
+ 	}
+}
 }
