@@ -4,6 +4,7 @@ using System.Collections;
 public class JumpScript : MonoBehaviour {
 		
 		public float jumpSpeed = 5f;
+	public float superJump = 2;
 		public bool standing;
 		public GameObject groundCheck;
 		
@@ -18,6 +19,19 @@ public class JumpScript : MonoBehaviour {
 			
 			if( (Input.GetKeyDown("up") || Input.GetKeyDown("space")) && standing){
 				rigidbody2D.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
-			}
 		}
 	}
+	
+	//Si salimos del trigger cortamos la carga
+	void OnTriggerExit2D(Collider2D target){
+		if (target.transform.tag == "SuperJump") {
+			jumpSpeed = jumpSpeed / superJump;
+		}
+	}
+	
+	void OnTriggerEnter2D(Collider2D target){
+		if (target.transform.tag == "SuperJump") {
+			jumpSpeed = jumpSpeed * 2;
+		}
+	}
+}
