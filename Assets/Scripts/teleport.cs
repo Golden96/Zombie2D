@@ -3,20 +3,52 @@ using System.Collections;
 
 public class teleport : MonoBehaviour {
 	
-	public Transform punto1;
-	public float tiempoEspera = 0.0f; // Tiempo que el Player tiene que estar para cargar
-	bool cargando = false; // Controla si el player esta dentro del trigger
-	
-	
-	
-	void OnDrawGizmosSelected() {
-		if (punto1 != null) {
+	public Transform destino;
+	public bool delantepuerta = false;
+	public bool teletransporta = false;
+	//public float tiempoEspera = 0.0f; // Tiempo que el Player tiene que estar para cargar
+	//bool cargando = false; // Controla si el player esta dentro del trigger
+
+	void Update() {
+		if (Input.GetKeyDown (KeyCode.Space)  && delantepuerta) {
+			teletransporta = true;
+		}
+	}
+
+
+	void OnTriggerEnter2D(Collider2D target){
+				if (target.transform.tag == "Player")
+						delantepuerta = true;
+
+		} 
+
+	void OnTriggerStay2D(Collider2D target){
+		if (teletransporta) {
+						target.transform.position = destino.position;
+			teletransporta = false;
+			delantepuerta = false;
+
+
+			}
+
+		}
+
+	void OnTriggerExit2D(Collider2D target) {
+				if (target.transform.tag == "Player")
+						delantepuerta = false;
+
+		}
+
+
+	void OnDrawGizmos() {
+		if (destino != null) {
 			Gizmos.color = Color.blue;
-			Gizmos.DrawLine(transform.position,  punto1.position);
+			Gizmos.DrawLine(transform.position, destino.position);
+
 		}
 	}
 	
-	
+ /*
 	void OnTriggerStay2D(Collider2D target){
 		
 		if (target.transform.tag == "Player") {
@@ -26,8 +58,11 @@ public class teleport : MonoBehaviour {
 			
 		}
 	}
-	
-	//Si salimos del trigger cortamos la carga
+
+	 */
+
+	/*
+	 * //Si salimos del trigger cortamos la carga
 	void OnTriggerExit2D(Collider2D target){
 		cargando = false;
 	}
@@ -38,6 +73,7 @@ public class teleport : MonoBehaviour {
 		Debug.Log("Before Waiting 2 seconds");
 		yield return new WaitForSeconds(tiempoEspera); // Esperamos el tiempo definido
 		if(cargando) // Si sigue en el trigger cargamos la escena
-			target.transform.position = punto1.position;
+			target.transform.position = punto1.position; 
 	}
+	*/ 
 }
